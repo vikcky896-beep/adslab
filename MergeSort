@@ -1,0 +1,62 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define max 100
+int arr[max];
+int sort[max];
+void mergesort(int,int);
+void merge(int,int,int);
+int main(){
+    int n,i;
+    printf("Enter number of elements\n");
+    scanf("%d",&n);
+    printf("Enter the elements\n");
+    for(i=0;i<n;i++)        
+     scanf("%d",&arr[i]);
+    printf("The elements before sorting are\n");
+    for(i=0;i<n;i++)
+     printf("%d ",arr[i]);
+    printf("\n");
+    mergesort(0,n-1);
+    printf("The elements after sorting are\n");
+    for(i=0;i<n;i++)   
+     printf("%d ",arr[i]); 
+    return 0;
+}
+void mergesort(int low,int high){
+    int mid;
+    if(low<high){
+        mid=(low+high)/2;
+        mergesort(low,mid);
+        mergesort(mid+1,high);
+        merge(low,mid,high);
+    }
+}
+void merge(int low,int mid,int high){
+    int i,j,k;
+    i=low;
+    j=mid+1;
+    k=low;
+    while(i<=mid && j<=high){
+        if(arr[i]<arr[j]){
+            sort[k]=arr[i];
+            i++;
+        }
+        else{
+            sort[k]=arr[j];
+            j++;
+        }
+        k++;
+    }
+    while(i<=mid){
+        sort[k]=arr[i];
+        i++;
+        k++;
+    }
+    while(j<=high){
+        sort[k]=arr[j];
+        j++;
+        k++;
+    }
+    for(i=low;i<k;i++)
+     arr[i]=sort[i];
+}
